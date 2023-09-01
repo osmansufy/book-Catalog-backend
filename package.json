@@ -12,16 +12,13 @@
     "prettier:check": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "prettier:fix": "prettier --write .",
     "lint-prettier": "yarn lint:check && yarn prettier:check",
+    "prepare": "husky install" ,
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "lint-staged": {
     "src/**/*.ts": "yarn lint-prettier"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
+  
   "dependencies": {
     "@prisma/client": "^5.2.0",
     "cookie-parser": "^1.4.6",
