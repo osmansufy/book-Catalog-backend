@@ -1,15 +1,35 @@
-import cors from 'cors';
-import express, { Application } from 'express';
+import { Server } from 'http';
+import app from './app';
+import config from './config';
 
-import httpStatus from 'http-status';
+async function main() {
+  const server: Server = app.listen(config.port, () => {
+    console.log(`Listening on port ${config.port}`);
+  });
 
-import cookieParser from 'cookie-parser';
+  const exitHandler = () => {
+    if (server) {
+      server.close(() => {
+        console.log('Server closed');
+        process.exit(1);
+      });
+    }
+    process.exit(1);
+  };
 
-const app: Application = express();
+  const unexpectedErrorHandler = (error: Error) => {
+    console.error(error);
+    exitHandler();
+  };
 
-app.use(cors());
-app.use(cookieParser());
+  process.on('uncaughtException', unexpectedErrorHandler);
+  process.on('unhandledRejection', unexpectedErrorHandler);
 
-app.get('/', (req, res) => {
-  res.status(httpStatus.OK).send('Hello World!');
-});
+  process.on('SIGTERM', () => {
+    console.log('SIGTERM received');
+    if (server) {
+      server.close();
+    }
+  });
+}
+main();
