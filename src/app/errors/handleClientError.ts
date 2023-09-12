@@ -24,6 +24,16 @@ const handleClientError = (error: Prisma.PrismaClientKnownRequestError) => {
         },
       ];
     }
+  } else if (error.code === 'P2002') {
+    if (error.message.includes('create()` invocation:')) {
+      message = 'Record already exists';
+      errors = [
+        {
+          path: '',
+          message,
+        },
+      ];
+    }
   }
 
   return {
