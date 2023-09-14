@@ -9,4 +9,8 @@ export default {
   port: process.env.PORT,
   databaseURL: process.env.DATABASE_URL,
   env: process.env.NODE_ENV,
+  jwt: {
+    secret: process.env.JWT_SECRET,
+    expiration: process.env.JWT_EXPIRATION_TIME,
+  },
 };
