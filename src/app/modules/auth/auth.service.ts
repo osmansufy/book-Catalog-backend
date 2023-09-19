@@ -1,11 +1,11 @@
 import { User } from '@prisma/client';
 import prisma from '../../../shared/prisma';
-import ApiError from '../../errors/ApiError';
 import httpStatus from 'http-status';
 import bcrypt from 'bcrypt';
 import { JwtHelpers } from '../../../helpers/JwtHelpers';
 import config from '../../../config';
 import { Secret } from 'jsonwebtoken';
+import ApiError from '../../../errors/ApiError';
 
 const createUser = async (user: User) => {
   // hash password before saving to db

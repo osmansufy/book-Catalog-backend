@@ -1,7 +1,7 @@
 import { Category } from '@prisma/client';
 import prisma from '../../../shared/prisma';
-import ApiError from '../../errors/ApiError';
 import httpStatus from 'http-status';
+import ApiError from '../../../errors/ApiError';
 
 const createCategory = async (category: Category) => {
   const newCategory = await prisma.category.create({

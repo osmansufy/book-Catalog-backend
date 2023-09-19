@@ -13,6 +13,8 @@ import ApiError from '../../../errors/ApiError';
 import { IGenericResponse } from '../../../interfaces/common';
 
 const createBook = async (book: Book) => {
+  console.log({ book });
+  book.publicationDate = new Date(book.publicationDate);
   const newBook = await prisma.book.create({
     data: book,
   });
@@ -23,8 +25,8 @@ const createBook = async (book: Book) => {
 const getAllBooks = async (
   filters: IBookFilterRequest,
   priceLimit: {
-    maxPrice?: number;
-    minPrice?: number;
+    maxPrice?: string;
+    minPrice?: string;
   },
   options: IPaginationOptions,
 ): Promise<IGenericResponse<Book[]>> => {
@@ -42,6 +44,15 @@ const getAllBooks = async (
           mode: 'insensitive',
         },
       })),
+    });
+  }
+
+  if (priceLimit.minPrice || priceLimit.maxPrice) {
+    andConditions.push({
+      price: {
+        gte: priceLimit.minPrice ? parseFloat(priceLimit.minPrice) : undefined,
+        lte: priceLimit.maxPrice ? parseFloat(priceLimit.maxPrice) : undefined,
+      },
     });
   }
 
@@ -66,10 +77,6 @@ const getAllBooks = async (
   const books = await prisma.book.findMany({
     where: {
       ...whereCondition,
-      price: {
-        lte: priceLimit.maxPrice || 1000000000,
-        gte: priceLimit.minPrice || 0,
-      },
     },
     skip,
     take: limit,

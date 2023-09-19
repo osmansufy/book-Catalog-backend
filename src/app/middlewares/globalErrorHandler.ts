@@ -4,12 +4,12 @@
 import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
 import config from '../../config';
 import { IGenericErrorMessage } from '../../interfaces/error';
-import handleValidationError from '../errors/handleValidationError';
+import handleValidationError from '../../errors/handleValidationError';
 import { Prisma } from '@prisma/client';
 import { ZodError } from 'zod';
-import handleClientError from '../errors/handleClientError';
-import handleZodError from '../errors/handleZodError';
-import ApiError from '../errors/ApiError';
+import handleClientError from '../../errors/handleClientError';
+import handleZodError from '../../errors/handleZodError';
+import ApiError from '../../errors/ApiError';
 
 const globalErrorHandler: ErrorRequestHandler = (
   error,

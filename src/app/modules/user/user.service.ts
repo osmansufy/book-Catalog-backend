@@ -1,7 +1,7 @@
 import { User } from '@prisma/client';
 import prisma from '../../../shared/prisma';
-import ApiError from '../../errors/ApiError';
 import httpStatus from 'http-status';
+import ApiError from '../../../errors/ApiError';
 
 const getAllUsers = async () => {
   const users = await prisma.user.findMany({
