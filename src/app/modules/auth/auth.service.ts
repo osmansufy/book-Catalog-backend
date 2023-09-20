@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { EnumRole, User } from '@prisma/client';
 import prisma from '../../../shared/prisma';
 import httpStatus from 'http-status';
 import bcrypt from 'bcrypt';
@@ -12,7 +12,9 @@ const createUser = async (user: User) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(user.password, salt);
   user.password = hashedPassword;
+  // role convert to uppercase
 
+  user.role = user.role.toUpperCase() as EnumRole;
   // don't send password in response
   const newUser = await prisma.user.create({
     data: user,

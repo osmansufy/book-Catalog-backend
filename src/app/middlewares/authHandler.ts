@@ -21,7 +21,7 @@ const auth =
         accessToken,
         config.jwt.secret as Secret,
       );
-
+      req.user = decoded;
       // guard with role
       if (requiredRoles.length && !requiredRoles.includes(decoded.role)) {
         throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
