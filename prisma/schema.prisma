@@ -47,7 +47,6 @@ model Book {
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   ReviewAndRating ReviewAndRating[]
-  OrderedBooks    OrderedBooks[]
 
   @@map("books")
 }
@@ -80,7 +79,6 @@ model Order {
 
 model OrderedBooks {
   id        String   @id @default(uuid())
-  book      Book     @relation(fields: [bookId], references: [id])
   bookId    String
   order     Order    @relation(fields: [orderId], references: [id])
   orderId   String

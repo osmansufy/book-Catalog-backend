@@ -8,7 +8,6 @@ const createOrder = async (
   userId: string,
 ) => {
   const orderData = {
-    ...order,
     userId,
     status: EnumOrderStatus.PENDING,
     orderedBooks: {
