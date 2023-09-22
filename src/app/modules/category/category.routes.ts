@@ -12,7 +12,11 @@ router.post(
   auth(EnumRole.ADMIN),
   CategoryController.createCategory,
 );
-router.put('/:id', auth(EnumRole.ADMIN), CategoryController.updateCategoryById);
+router.patch(
+  '/:id',
+  auth(EnumRole.ADMIN),
+  CategoryController.updateCategoryById,
+);
 router.delete(
   '/:id',
   auth(EnumRole.ADMIN),

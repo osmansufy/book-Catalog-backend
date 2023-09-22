@@ -11,7 +11,7 @@ router.get('/:bookId', BookController.getBookById);
 
 router.post('/create-book', auth(EnumRole.ADMIN), BookController.createBook);
 
-router.put('/:bookId', auth(EnumRole.ADMIN), BookController.updateBookById);
+router.patch('/:bookId', auth(EnumRole.ADMIN), BookController.updateBookById);
 
 router.delete('/:bookId', auth(EnumRole.ADMIN), BookController.deleteBookById);
 
