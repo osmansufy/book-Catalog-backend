@@ -14,7 +14,7 @@ import { IGenericResponse } from '../../../interfaces/common';
 
 const createBook = async (book: Book) => {
   console.log({ book });
-  // book.publicationDate = new Date(book.publicationDate);
+  book.publicationDate = new Date(book.publicationDate);
   const newBook = await prisma.book.create({
     data: book,
   });
